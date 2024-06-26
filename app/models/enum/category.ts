@@ -1,7 +1,7 @@
 export enum Category {
-  FOOD = 'food',
-  DRINK = 'drink',
-  CLOTHES = 'clothes',
-  ELECTRONICS = 'electronics',
-  OTHERS = 'others',
+  SNEAKERS = 'sneakers',
+  TSHIRTS = 'tshirts',
+  BAGS = 'bags',
+  ACCESSORIES = 'accessories',
+  MISC = 'misc',
 }
