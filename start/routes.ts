@@ -1,3 +1,4 @@
+/* eslint-disable @adonisjs/prefer-lazy-controller-import */
 /*
 |--------------------------------------------------------------------------
 | Routes file
@@ -8,12 +9,13 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { UsersController } from '#controllers/Http/users_controller'
 router
   .group(() => {
-    router.get('/users', 'users_controller.index')
-    router.get('/users/:id', 'users_controller.show')
-    router.post('/users', 'users_controller.store')
-    router.put('/users/:id', 'users_controller.update')
-    router.delete('/users/:id', 'users_controller.destroy')
+    router.get('/users', [UsersController, 'index'])
+    router.get('/users/:id', [UsersController, 'getById'])
+    router.post('/users', [UsersController, 'create'])
+    router.put('/users/:id', [UsersController, 'updateUser'])
+    router.delete('/users/:id', [UsersController, 'deleteUser'])
   })
   .prefix('/api')

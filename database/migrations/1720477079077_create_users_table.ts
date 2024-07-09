@@ -14,9 +14,6 @@ export default class extends BaseSchema {
       table.string('remember_me_token').nullable()
       table.boolean('email_verified').defaultTo(false)
       table.string('email_verification_token').nullable()
-
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
     })
   }
 
