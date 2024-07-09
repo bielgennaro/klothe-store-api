@@ -3,5 +3,8 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./build",
-  },
+    "paths": {
+      "@controllers/*": ["./app/controllers"]
+    }
+  }
 }
