@@ -9,6 +9,8 @@ export default class extends BaseSchema {
       table.string('first_name')
       table.string('last_name')
       table.string('username').unique()
+      table.string('phone')
+      table.string('shopping_cart')
       table.string('email').unique()
       table.string('password')
       table.string('remember_me_token').nullable()

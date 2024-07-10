@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import ShoppingCart from '#models/shopping_cart'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class User extends BaseModel {
@@ -13,6 +13,12 @@ export default class User extends BaseModel {
 
   @column()
   declare username: string
+
+  @column()
+  declare phone: string
+
+  @column()
+  declare shopping_cart: ShoppingCart
 
   @column()
   declare email: string
