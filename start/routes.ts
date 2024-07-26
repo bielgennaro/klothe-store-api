@@ -16,7 +16,7 @@ router
   .group(() => {
     router.get('/users', [UsersController, 'index'])
     router.get('/users/:id', [UsersController, 'getById'])
-    router.post('/users', [UsersController, 'create'])
+    router.post('/users/create', [UsersController, 'create'])
     router.put('/users/:id', [UsersController, 'updateUser'])
     router.delete('/users/:id', [UsersController, 'deleteUser'])
   })
@@ -26,7 +26,7 @@ router
   .group(() => {
     router.get('/products', [ProductsController, 'index'])
     router.get('/products/:id', [ProductsController, 'getById'])
-    router.post('/products', [ProductsController, 'create'])
+    router.post('/products/create', [ProductsController, 'create'])
     router.put('/products/:id', [ProductsController, 'update'])
     router.delete('/products/:id', [ProductsController, 'delete'])
   })

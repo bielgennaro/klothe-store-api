@@ -13,19 +13,21 @@ export default class extends BaseSchema {
       table.string('image').notNullable()
       table
         .enum('category', [
-          'Tshirts',
-          'Pants',
-          'Accessories',
-          'Sneakers',
-          'Jackets',
-          'Shirts',
-          'Shorts',
-          'Hoodies',
+          'TSHIRT',
+          'HOODIE',
+          'JACKET',
+          'PANTS',
+          'SHORTS',
+          'SHOES',
+          'HAT',
+          'BAG',
+          'ACCESSORY',
+          'WATCH',
         ])
         .notNullable()
       table.string('size').notNullable()
       table.string('colorway').notNullable()
-      table.boolean('has_stockX_tag').notNullable()
+      table.boolean('has_stock_x_tag').notNullable()
       table.boolean('has_goat_tag').notNullable()
 
       table.timestamp('created_at')

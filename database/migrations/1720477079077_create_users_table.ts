@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'users_table'
+  protected tableName = 'users'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -13,9 +13,10 @@ export default class extends BaseSchema {
       table.string('shopping_cart')
       table.string('email').unique()
       table.string('password')
-      table.string('remember_me_token').nullable()
+      table.string('remember_me_token').defaultTo(false)
       table.boolean('email_verified').defaultTo(false)
       table.string('email_verification_token').nullable()
+      table.boolean('is_admin').defaultTo(false)
     })
   }
 

@@ -13,20 +13,25 @@ export default class ProductsController {
   }
 
   async create({ request, response }: HttpContext) {
-    const productData = request.only([
-      'name',
-      'description',
-      'price',
-      'stock',
-      'image',
-      'category',
-      'size',
-      'colorway',
-      'has_stockX_tag',
-      'has_goat_tag',
-    ])
-    const product = await Product.create(productData)
-    return response.created(product)
+    try {
+      const productData = request.only([
+        'name',
+        'description',
+        'price',
+        'stock',
+        'image',
+        'category',
+        'size',
+        'colorway',
+        'has_stock_x_tag',
+        'has_goat_tag',
+      ])
+      const product = await Product.create(productData)
+      return response.created(product)
+    } catch (e) {
+      console.log(e)
+      return response.badRequest(e)
+    }
   }
 
   async update({ params, request, response }: HttpContext) {

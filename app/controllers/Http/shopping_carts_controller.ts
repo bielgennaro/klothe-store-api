@@ -11,7 +11,7 @@ export class ShoppingCartsController {
   async create({ request, response }: HttpContext) {
     const shoppingCarts = await ShoppingCart.create(request.body())
 
-    response.created(shoppingCarts)
+    response.created(shoppingCarts.toJSON())
   }
 
   async getById({ params, response }: HttpContext) {

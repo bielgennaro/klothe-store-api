@@ -1,15 +1,17 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
-enum ICategory {
-  'Tshirts',
-  'Pants',
-  'Accessories',
-  'Sneakers',
-  'Jackets',
-  'Shirts',
-  'Shorts',
-  'Hoodies',
+enum Category {
+  TSHIRT = 'tshirt',
+  HOODIE = 'hoodie',
+  JACKET = 'jacket',
+  PANTS = 'pants',
+  SHORTS = 'shorts',
+  SHOES = 'shoes',
+  HAT = 'hat',
+  BAG = 'bag',
+  ACCESSORY = 'accessory',
+  WATCH = 'watch',
 }
 
 export default class Product extends BaseModel {
@@ -32,7 +34,7 @@ export default class Product extends BaseModel {
   declare image: URL
 
   @column()
-  declare category: ICategory
+  declare category: Category
 
   @column()
   declare size: string
@@ -41,7 +43,7 @@ export default class Product extends BaseModel {
   declare colorway: string
 
   @column()
-  declare has_stockX_tag: boolean
+  declare has_stock_x_tag: boolean
 
   @column()
   declare has_goat_tag: boolean

@@ -1,5 +1,3 @@
-import Product from '#models/product'
-import User from '#models/user'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 enum Status {
