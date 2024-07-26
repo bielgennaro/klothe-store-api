@@ -29,9 +29,9 @@ export class UsersController {
 
       await UserService.createUser(userData)
       return response.ok({ message: 'User created' })
-    } catch (e) {
-      console.log(e)
-      return response.badRequest({ error: e.message })
+    } catch (error) {
+      console.log(error)
+      return response.badRequest({ error: error.message })
     }
   }
 
