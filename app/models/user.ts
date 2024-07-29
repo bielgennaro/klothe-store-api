@@ -33,7 +33,7 @@ export default class User extends BaseModel {
   declare emailVerified: boolean
 
   @column()
-  declare emailVerificationToken: string | null
+  declare adminVerificationKey: string | null
 
   @column()
   declare isAdmin: boolean

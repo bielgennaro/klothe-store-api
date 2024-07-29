@@ -1,13 +1,11 @@
-import User from '#models/user'
 import { HttpContext } from '@adonisjs/core/http'
-import { generateKey } from 'node:crypto'
-import hash from '@adonisjs/core/services/hash'
 import { UserService } from '#services/user_service'
 
 export class UsersController {
   async index({ response }: HttpContext) {
     try {
-      const user = await User.all()
+      const user = await UserService.listUsers()
+
       return response.ok(user)
     } catch (e) {
       console.log(e)
@@ -37,18 +35,12 @@ export class UsersController {
 
   async getById({ params, response }: HttpContext) {
     try {
-      const user = await User.findOrFail(params.id)
+      const user = await UserService.listById(params.id)
+
       if (!user) {
         return response.notFound({ message: 'User not found' })
       }
 
-      // TODO - Ainda não testei xD
-      if (user.isAdmin) {
-        generateKey('hmac', { length: 256 }, (err, key) => {
-          err ? console.log(err) : console.log(key)
-        })
-        return response.ok(user)
-      }
       return response.ok(user)
     } catch (e) {
       console.log(e)
@@ -57,22 +49,36 @@ export class UsersController {
   }
 
   async updateUser({ params, request, response }: HttpContext) {
-    const userData = request.only(['firstName', 'lastName', 'username', 'email', 'password'])
+    try {
+      const userData = request.only(['firstName', 'lastName', 'username', 'email', 'password'])
 
-    const user = await User.findOrFail(params.id)
+      const user = await UserService.updateUser(params.id, userData)
+      if (!user) {
+        return response.notFound({ message: 'User not found' })
+      }
 
-    user.merge(userData)
+      user.merge(userData)
+      await user.save()
 
-    await user.save()
-
-    response.ok(user)
+      return response.ok(user)
+    } catch (e) {
+      console.log(e)
+      return response.badRequest({ message: 'Could not update user' })
+    }
   }
 
-  async deleteUser({ params, response }: HttpContext) {
-    const user = await User.findOrFail(params.id)
+  async deleteUser({ response, params }: HttpContext) {
+    try {
+      const user = await UserService.findUserById(params.id)
+      if (!user) {
+        return response.notFound({ message: 'User not found' })
+      }
+      await UserService.deleteUser(params.id)
 
-    await user.delete()
-
-    response.noContent()
+      return response.noContent()
+    } catch (e) {
+      console.log(e)
+      return response.badRequest({ message: 'Could not delete user' })
+    }
   }
 }
