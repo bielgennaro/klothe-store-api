@@ -16,7 +16,7 @@ export default class AuthMiddleware {
     ctx: HttpContext,
     next: NextFn,
     options: {
-      guards?: (keyof Authenticators)[]
+      guards?: (keyof Authenticators)[]''
     } = {}
   ) {
     await ctx.auth.authenticateUsing(options.guards, { loginRoute: this.redirectTo })

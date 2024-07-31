@@ -1,15 +1,25 @@
-import Product from '#models/product'
+import ProductService from '#services/products_service'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class ProductsController {
   async index({ response }: HttpContext) {
-    const products = await Product.all()
-    return response.ok(products)
+    try {
+      const products = await ProductService.listProducts()
+      return response.ok({ products })
+    } catch (e) {
+      console.log(e)
+      response.badRequest({ error: e.message })
+    }
   }
 
   async getById({ params, response }: HttpContext) {
-    const product = await Product.find(params.id)
-    return response.ok(product)
+    try {
+      const product = await ProductService.listById(params.id)
+      return response.ok({ product })
+    } catch (e) {
+      console.log(e)
+      response.badRequest({ error: e.message })
+    }
   }
 
   async create({ request, response }: HttpContext) {
@@ -26,36 +36,43 @@ export default class ProductsController {
         'has_stock_x_tag',
         'has_goat_tag',
       ])
-      const product = await Product.create(productData)
-      return response.created(product)
+      await ProductService.createProduct(productData)
+      return response.created({ message: 'Product created' })
     } catch (e) {
       console.log(e)
-      return response.badRequest(e)
+      return response.badRequest({ error: e.message })
     }
   }
 
   async update({ params, request, response }: HttpContext) {
-    const productData = request.only([
-      'name',
-      'description',
-      'price',
-      'stock',
-      'image',
-      'category',
-      'size',
-      'colorway',
-      'has_stockX_tag',
-      'has_goat_tag',
-    ])
-    const product = await Product.findOrFail(params.id)
-    product.merge(productData)
-    await product.save()
-    return response.ok(product)
+    try {
+      request.only([
+        'name',
+        'description',
+        'price',
+        'stock',
+        'image',
+        'category',
+        'size',
+        'colorway',
+        'has_stockX_tag',
+        'has_goat_tag',
+      ])
+      const product = await ProductService.updateProduct(params.id)
+      return response.ok(product)
+    } catch (e) {
+      console.log(e)
+      return response.badRequest({ error: e.message })
+    }
   }
 
   async delete({ params, response }: HttpContext) {
-    const product = await Product.findOrFail(params.id)
-    await product.delete()
-    return response.noContent()
+    try {
+      await ProductService.deleteProduct(params.id)
+      return response.noContent()
+    } catch (e) {
+      console.log(e)
+      return response.badRequest({ error: e.message })
+    }
   }
 }

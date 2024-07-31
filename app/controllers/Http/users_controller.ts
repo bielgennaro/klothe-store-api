@@ -81,4 +81,15 @@ export class UsersController {
       return response.badRequest({ message: 'Could not delete user' })
     }
   }
+
+  async login({ request, response }: HttpContext) {
+    try {
+      const { email, password } = request.only(['email', 'password'])
+      const user = await UserService.login(email, password)
+      return response.ok(user)
+    } catch (e) {
+      console.log(e)
+      return response.badRequest({ error: e.message })
+    }
+  }
 }

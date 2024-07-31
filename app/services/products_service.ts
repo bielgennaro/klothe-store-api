@@ -17,12 +17,12 @@ export default class ProductService {
     return await Product.findOrFail(params.id)
   }
 
-  static async updateProduct(params: Product, productData: any) {
+  static async updateProduct(params: Product) {
     if (!params || !params.id) {
       throw new Error('Invalid parameters: id is required')
     }
     const product = await Product.findOrFail(params.id)
-    product.merge(productData)
+    product.merge(product)
     await product.save()
     return product
   }

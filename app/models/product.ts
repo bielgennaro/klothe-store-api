@@ -1,18 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
-
-enum Category {
-  TSHIRT = 'tshirt',
-  HOODIE = 'hoodie',
-  JACKET = 'jacket',
-  PANTS = 'pants',
-  SHORTS = 'shorts',
-  SHOES = 'shoes',
-  HAT = 'hat',
-  BAG = 'bag',
-  ACCESSORY = 'accessory',
-  WATCH = 'watch',
-}
+import { Category } from './enums/category.js'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
